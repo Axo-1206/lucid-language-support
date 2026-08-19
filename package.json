@@ -1,8 +1,8 @@
 {
-	"name": "luc-language-support",
-	"displayName": "Luc Language Support",
+	"name": "lucid-language-support",
+	"displayName": "Lucid Language Support",
 	"icon": "icon.png",
-	"description": "Syntax highlighting and support for the Luc language",
+	"description": "Syntax highlighting and support for the Lucid language",
 	"publisher": "Axo",
 	"version": "0.2.0",
 	"repository": {
@@ -19,8 +19,10 @@
 	"contributes": {
 		"languages": [
 			{
-				"id": "luc",
+				"id": "lucid",
 				"aliases": [
+					"Lucid",
+					"lucid",
 					"Luc",
 					"luc"
 				],
@@ -36,15 +38,15 @@
 		],
 		"grammars": [
 			{
-				"language": "luc",
+				"language": "lucid",
 				"scopeName": "source.luc",
-				"path": "./syntaxes/luc.tmLanguage.json"
+				"path": "./syntaxes/lucid.tmLanguage.json"
 			}
 		],
 		"snippets": [
 			{
-				"language": "luc",
-				"path": "./snippets/luc.json"
+				"language": "lucid",
+				"path": "./snippets/lucid.json"
 			}
 		]
 	}
