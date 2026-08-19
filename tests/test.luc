@@ -1,40 +1,9 @@
-package test
-
-struct Rectagle {
-    test string
-}
-
-pub trait Shape {
-    area () int    
-}
-
-pub impl Rectagle : Shape {
-    area () int, string {
-        return 5, "test";
-    }
-}
 
 
-type ID = int
-
-let name int = 5 
-
-let name (param type) returnType = {
-    
-}
-
-let name (param type) returnType = async {
-    
-}
-
-let test (num int) int, int = {
-    return num + 5, 5
-} 
-
-
-export const main () int = {
-    
+@[export]
+const main () -> int = {
+    const name (param [_]()) -> returnType = {
+        await a, b;
+    };
     return 0
 }
-
-

@@ -4,10 +4,10 @@
 	"icon": "icon.png",
 	"description": "Syntax highlighting and support for the Lucid language",
 	"publisher": "Axo",
-	"version": "0.2.0",
+	"version": "0.3.0",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/Axo-1206/luc-language-support.git"
+		"url": "https://github.com/Axo-1206/lucid-language-support.git"
 	},
 	"license": "MIT",
 	"engines": {
@@ -39,7 +39,7 @@
 		"grammars": [
 			{
 				"language": "lucid",
-				"scopeName": "source.luc",
+				"scopeName": "source.lucid",
 				"path": "./syntaxes/lucid.tmLanguage.json"
 			}
 		],
