@@ -1,937 +1,146 @@
 {
-	"Package declaration": {
-		"prefix": "package",
-		"body": [
-			"package ${1:name}"
-		],
-		"description": "Declare the package name (first line of every .luc file)"
-	},
-	"Import declaration": {
+	"Import": {
 		"prefix": "import",
 		"body": [
-			"import ${1:module}"
+			"import ${1:module.path}"
 		],
 		"description": "Import a module"
-	},
-	"Import with alias": {
-		"prefix": "importas",
-		"body": [
-			"import ${1:module} as ${2:alias}"
-		],
-		"description": "Import a module with a local alias"
-	},
-	"Let declaration": {
-		"prefix": "let",
-		"body": [
-			"let ${1:name} ${2:type} = ${0};"
-		],
-		"description": "Reassignable, mutable variable"
-	},
-	"Let nullable declaration": {
-		"prefix": "let?",
-		"body": [
-			"let ${1:name} ${2:type}? = ${0};"
-		],
-		"description": "Nullable variable — may be nil"
-	},
-	"Let fallible declaration": {
-		"prefix": "let!",
-		"body": [
-			"let ${1:name} ${2:type}! = ${0};"
-		],
-		"description": "Fallible variable — may be err"
-	},
-	"Let nullable-fallible declaration": {
-		"prefix": "let?!",
-		"body": [
-			"let ${1:name} ${2:type}?! = ${0};"
-		],
-		"description": "Nullable and fallible variable — may be nil or err"
-	},
-	"Let declaration — no initializer (nullable)": {
-		"prefix": "letn",
-		"body": [
-			"let ${1:name} ${2:type}?;"
-		],
-		"description": "Nullable variable with no initializer — starts nil"
-	},
-	"Let declaration — no initializer (fallible)": {
-		"prefix": "letf",
-		"body": [
-			"let ${1:name} ${2:type}!;"
-		],
-		"description": "Fallible variable with no initializer — starts unset"
-	},
-	"Let declaration — no initializer (nullable-fallible)": {
-		"prefix": "letb",
-		"body": [
-			"let ${1:name} ${2:type}?!;"
-		],
-		"description": "Nullable and fallible variable with no initializer"
-	},
-	"Const declaration": {
-		"prefix": "const",
-		"body": [
-			"const ${1:name} ${2:type} = ${0};"
-		],
-		"description": "Immutable binding"
-	},
-	"Const nullable declaration": {
-		"prefix": "const?",
-		"body": [
-			"const ${1:name} ${2:type}? = ${0};"
-		],
-		"description": "Immutable nullable binding"
-	},
-	"Const fallible declaration": {
-		"prefix": "const!",
-		"body": [
-			"const ${1:name} ${2:type}! = ${0};"
-		],
-		"description": "Immutable fallible binding"
-	},
-	"Const nullable-fallible declaration": {
-		"prefix": "const?!",
-		"body": [
-			"const ${1:name} ${2:type}?! = ${0};"
-		],
-		"description": "Immutable nullable and fallible binding"
-	},
-	"Function declaration": {
-		"prefix": "fn",
-		"body": [
-			"const ${1:name} (${2:param} ${3:type}) -> ${4:returnType} = {",
-			"\t${0}",
-			"};"
-		],
-		"description": "Function with a return value"
-	},
-	"Function declaration — void": {
-		"prefix": "fnv",
-		"body": [
-			"const ${1:name} (${2:param} ${3:type}) -> () = {",
-			"\t${0}",
-			"};"
-		],
-		"description": "Void function — returns ()"
-	},
-	"Function declaration — nullable return": {
-		"prefix": "fnnr",
-		"body": [
-			"const ${1:name} (${2:param} ${3:type}) -> ${4:returnType}? = {",
-			"\t${0}",
-			"};"
-		],
-		"description": "Function that may return nil"
-	},
-	"Function declaration — fallible return": {
-		"prefix": "fnf",
-		"body": [
-			"const ${1:name} (${2:param} ${3:type}) -> ${4:returnType}! = {",
-			"\t${0}",
-			"};"
-		],
-		"description": "Function that may fail — returns err on failure"
-	},
-	"Function declaration — nullable-fallible return": {
-		"prefix": "fnb",
-		"body": [
-			"const ${1:name} (${2:param} ${3:type}) -> ${4:returnType}?! = {",
-			"\t${0}",
-			"};"
-		],
-		"description": "Function that may be nil or err"
-	},
-	"Function declaration — const reference parameter": {
-		"prefix": "fnref",
-		"body": [
-			"const ${1:name} (const ${2:param} ${3:type}) -> ${4:returnType} = {",
-			"\t${0}",
-			"};"
-		],
-		"description": "Function with read-only reference parameter (no copy)"
-	},
-	"Curried function — two groups": {
-		"prefix": "fnc",
-		"body": [
-			"const ${1:name} (${2:a} ${3:typeA})( ${4:b} ${5:typeB}) -> ${6:returnType} = {",
-			"\t${0}",
-			"};"
-		],
-		"description": "Curried function with two parameter groups"
-	},
-	"Curried function — with explicit boundary": {
-		"prefix": "fncb",
-		"body": [
-			"const ${1:name} (${2:a} ${3:typeA}) -> (${4:b} ${5:typeB}) -> ${6:returnType} = {",
-			"\treturn (${4:b} ${5:typeB}) -> ${6:returnType} {",
-			"\t\t${0}",
-			"\t};",
-			"};"
-		],
-		"description": "Curried function with explicit -> boundary — body runs between groups"
-	},
-	"Generic function": {
-		"prefix": "fng",
-		"body": [
-			"const ${1:name}<${2:T}> (${3:param} ${2:T}) -> ${2:T} = {",
-			"\t${0}",
-			"};"
-		],
-		"description": "Generic function — type parameter after name"
-	},
-	"Generic function with constraint": {
-		"prefix": "fngc",
-		"body": [
-			"const ${1:name}<${2:T} : ${3:Trait}> (${4:param} ${2:T}) -> ${5:returnType} = {",
-			"\t${0}",
-			"};"
-		],
-		"description": "Generic function with trait constraint"
-	},
-	"Generic function with multiple constraints": {
-		"prefix": "fngcm",
-		"body": [
-			"const ${1:name}<${2:T} : ${3:Trait} + ${4:OtherTrait}> (${5:param} ${2:T}) -> ${6:returnType} = {",
-			"\t${0}",
-			"};"
-		],
-		"description": "Generic function with multiple trait constraints"
-	},
-	"Exported function": {
-		"prefix": "exfn",
-		"body": [
-			"@[export]",
-			"const ${1:name} (${2:param} ${3:type}) -> ${4:returnType} = {",
-			"\t${0}",
-			"};"
-		],
-		"description": "Exported function — visible outside module"
-	},
-	"Foreign function": {
-		"prefix": "foreign",
-		"body": [
-			"@[foreign(\"C\"), link(\"${1:library}\")]",
-			"const ${2:name} (${3:param} ${4:type}) -> ${5:returnType} = {};"
-		],
-		"description": "Foreign C function — implemented in C, resolved at link time"
-	},
-	"Foreign function — nullable return": {
-		"prefix": "foreign?",
-		"body": [
-			"@[foreign(\"C\"), link(\"${1:library}\")]",
-			"const ${2:name} (${3:param} ${4:type}) -> ${5:returnType}? = {};"
-		],
-		"description": "Foreign C function that may return NULL"
-	},
-	"Foreign function — void": {
-		"prefix": "foreignv",
-		"body": [
-			"@[foreign(\"C\"), link(\"${1:library}\")]",
-			"const ${2:name} (${3:param} ${4:type}) -> () = {};"
-		],
-		"description": "Foreign void function — returns nothing"
-	},
-	"Foreign function — raw pointer return": {
-		"prefix": "foreignptr",
-		"body": [
-			"@[foreign(\"C\"), link(\"${1:library}\")]",
-			"const ${2:name} (${3:param} ${4:type}) -> *${5:returnType} = {};"
-		],
-		"description": "Foreign function returning a non-nullable raw pointer"
-	},
-	"Foreign function — nullable raw pointer return": {
-		"prefix": "foreignptr?",
-		"body": [
-			"@[foreign(\"C\"), link(\"${1:library}\")]",
-			"const ${2:name} (${3:param} ${4:type}) -> *${5:returnType}? = {};"
-		],
-		"description": "Foreign function returning a nullable raw pointer"
-	},
-	"Exported foreign function": {
-		"prefix": "exforeign",
-		"body": [
-			"@[export, foreign(\"C\"), link(\"${1:library}\")]",
-			"const ${2:name} (${3:param} ${4:type}) -> ${5:returnType} = {};"
-		],
-		"description": "Exported foreign function — Lucid function callable from C"
-	},
-	"Anonymous function": {
-		"prefix": "anon",
-		"body": [
-			"(${1:param} ${2:type}) -> ${3:returnType} {",
-			"\t${0}",
-			"}"
-		],
-		"description": "Anonymous function expression"
-	},
-	"Anonymous function — void": {
-		"prefix": "anonv",
-		"body": [
-			"(${1:param} ${2:type}) -> () {",
-			"\t${0}",
-			"}"
-		],
-		"description": "Anonymous void function"
-	},
-	"Anonymous function — curried": {
-		"prefix": "anonc",
-		"body": [
-			"(${1:a} ${2:typeA})( ${3:b} ${4:typeB}) -> ${5:returnType} {",
-			"\t${0}",
-			"}"
-		],
-		"description": "Curried anonymous function"
-	},
-	"Struct declaration": {
-		"prefix": "struct",
-		"body": [
-			"struct ${1:Name} {",
-			"\t${2:field} ${3:type};",
-			"\t${0}",
-			"}"
-		],
-		"description": "Struct data definition"
-	},
-	"Struct with default fields": {
-		"prefix": "structd",
-		"body": [
-			"struct ${1:Name} {",
-			"\t${2:field} ${3:type} = ${4:default};",
-			"\t${0}",
-			"}"
-		],
-		"description": "Struct with default field values"
-	},
-	"Struct with const field": {
-		"prefix": "structc",
-		"body": [
-			"struct ${1:Name} {",
-			"\tconst ${2:field} ${3:type} = ${4:default};",
-			"\t${0}",
-			"}"
-		],
-		"description": "Struct with const field — immutable after construction"
-	},
-	"Generic struct": {
-		"prefix": "structg",
-		"body": [
-			"struct ${1:Name}<${2:T}> {",
-			"\t${3:field} ${2:T};",
-			"\t${0}",
-			"}"
-		],
-		"description": "Generic struct declaration"
-	},
-	"Generic struct with constraint": {
-		"prefix": "structgc",
-		"body": [
-			"struct ${1:Name}<${2:T} : ${3:Trait}> {",
-			"\t${4:field} ${2:T};",
-			"\t${0}",
-			"}"
-		],
-		"description": "Generic struct with trait constraint"
-	},
-	"Struct implementing trait": {
-		"prefix": "structt",
-		"body": [
-			"struct ${1:Name} : ${2:Trait} {",
-			"\t${3:field} ${4:type};",
-			"\t${0}",
-			"}"
-		],
-		"description": "Struct implementing a trait"
-	},
-	"Struct implementing multiple traits": {
-		"prefix": "structtm",
-		"body": [
-			"struct ${1:Name} : ${2:Trait}, ${3:OtherTrait} {",
-			"\t${4:field} ${5:type};",
-			"\t${0}",
-			"}"
-		],
-		"description": "Struct implementing multiple traits"
-	},
-	"Struct literal": {
-		"prefix": "lit",
-		"body": [
-			"${1:Type} { ${2:field} = ${0} }"
-		],
-		"description": "Struct literal — field = value"
-	},
-	"Struct literal — multi-line": {
-		"prefix": "litm",
-		"body": [
-			"${1:Type} {",
-			"\t${2:field1} = ${3:value1};",
-			"\t${4:field2} = ${5:value2};",
-			"\t${0}",
-			"}"
-		],
-		"description": "Multi-line struct literal"
-	},
-	"Trait declaration": {
-		"prefix": "trait",
-		"body": [
-			"trait ${1:Name} {",
-			"\t${2:field} ${3:type};",
-			"\t${0}",
-			"}"
-		],
-		"description": "Trait — field contract only"
-	},
-	"Generic trait": {
-		"prefix": "traitg",
-		"body": [
-			"trait ${1:Name}<${2:T}> {",
-			"\t${3:field} ${2:T};",
-			"\t${0}",
-			"}"
-		],
-		"description": "Generic trait"
-	},
-	"Enum declaration": {
-		"prefix": "enum",
-		"body": [
-			"enum ${1:Name} {",
-			"\t${2:Variant} = ${3:0};",
-			"\t${0}",
-			"}"
-		],
-		"description": "Enum with explicit values"
-	},
-	"Enum with integer type": {
-		"prefix": "enumt",
-		"body": [
-			"enum ${1:Name} : ${2:int32} {",
-			"\t${3:Variant} = ${4:0};",
-			"\t${0}",
-			"}"
-		],
-		"description": "Enum with explicit integer type"
-	},
-	"Main function": {
-		"prefix": "main",
-		"body": [
-			"@[export]",
-			"const main () -> int = {",
-			"\t${0}",
-			"\treturn 0",
-			"};"
-		],
-		"description": "Program entry point"
-	},
-	"Main function with args": {
-		"prefix": "mainargs",
-		"body": [
-			"@[export]",
-			"const main (args [_]string) -> int = {",
-			"\t${0}",
-			"\treturn 0",
-			"};"
-		],
-		"description": "Program entry point with command-line arguments"
-	},
-	"If statement": {
-		"prefix": "if",
-		"body": [
-			"if ${1:condition} {",
-			"\t${0}",
-			"}"
-		],
-		"description": "If statement"
-	},
-	"If/else statement": {
-		"prefix": "ife",
-		"body": [
-			"if ${1:condition} {",
-			"\t${2}",
-			"} else {",
-			"\t${0}",
-			"}"
-		],
-		"description": "If/else statement"
-	},
-	"If/else if/else statement": {
-		"prefix": "ifelif",
-		"body": [
-			"if ${1:condition1} {",
-			"\t${2}",
-			"} else if ${3:condition2} {",
-			"\t${4}",
-			"} else {",
-			"\t${0}",
-			"}"
-		],
-		"description": "If/else if/else statement"
-	},
-	"If expression": {
-		"prefix": "ifx",
-		"body": [
-			"if ${1:condition} ?? ${2:trueVal} else ${3:falseVal}"
-		],
-		"description": "Inline if expression"
-	},
-	"Nil guard": {
-		"prefix": "guardnil",
-		"body": [
-			"if ${1:value} == nil { return ${0} }"
-		],
-		"description": "Guard against nil — early return"
-	},
-	"Err guard": {
-		"prefix": "guarderr",
-		"body": [
-			"if ${1:value} == err { return ${0} }"
-		],
-		"description": "Guard against err — early return"
-	},
-	"Nil/err guard": {
-		"prefix": "guardboth",
-		"body": [
-			"if ${1:value} == nil or ${1:value} == err { return ${0} }"
-		],
-		"description": "Guard against nil or err — early return"
-	},
-	"Switch statement": {
-		"prefix": "switch",
-		"body": [
-			"switch ${1:value} {",
-			"\tcase ${2:val}: { ${3} }",
-			"\tdefault:       { ${0} }",
-			"}"
-		],
-		"description": "Switch statement"
-	},
-	"Switch — multiple values": {
-		"prefix": "switchm",
-		"body": [
-			"switch ${1:value} {",
-			"\tcase ${2:a}, ${3:b}: { ${4} }",
-			"\tdefault:             { ${0} }",
-			"}"
-		],
-		"description": "Switch with multiple values per case"
-	},
-	"Switch — range": {
-		"prefix": "switchr",
-		"body": [
-			"switch ${1:value} {",
-			"\tcase ${2:0}..${3:10}:  { ${4} }",
-			"\tcase ${5:11}..<${6:20}: { ${7} }",
-			"\tdefault:               { ${0} }",
-			"}"
-		],
-		"description": "Switch with range cases"
-	},
-	"For range loop": {
-		"prefix": "for",
-		"body": [
-			"for ${1:i} int in ${2:0}..${3:n} {",
-			"\t${0}",
-			"}"
-		],
-		"description": "For loop over inclusive range"
-	},
-	"For range loop exclusive": {
-		"prefix": "forx",
-		"body": [
-			"for ${1:i} int in ${2:0}..<${3:n} {",
-			"\t${0}",
-			"}"
-		],
-		"description": "For loop over exclusive range"
-	},
-	"For range with step": {
-		"prefix": "fors",
-		"body": [
-			"for ${1:i} int in ${2:0}..${3:n}..${4:2} {",
-			"\t${0}",
-			"}"
-		],
-		"description": "For loop with step"
-	},
-	"For collection loop": {
-		"prefix": "forc",
-		"body": [
-			"for _, ${1:value} ${2:int} in ${3:collection} {",
-			"\t${0}",
-			"}"
-		],
-		"description": "For loop over collection — discard index"
-	},
-	"For collection with index": {
-		"prefix": "forci",
-		"body": [
-			"for ${1:i} int, ${2:value} ${3:int} in ${4:collection} {",
-			"\t${0}",
-			"}"
-		],
-		"description": "For loop over collection with index"
-	},
-	"While loop": {
-		"prefix": "while",
-		"body": [
-			"while ${1:condition} {",
-			"\t${0}",
-			"}"
-		],
-		"description": "While loop"
-	},
-	"Do-while loop": {
-		"prefix": "do",
-		"body": [
-			"do {",
-			"\t${0}",
-			"} while ${1:condition};"
-		],
-		"description": "Do-while loop — requires trailing ;"
-	},
-	"Async statement": {
-		"prefix": "async",
-		"body": [
-			"async const ${1:result} ${2:type} = ${3:call};"
-		],
-		"description": "Schedule an async operation"
-	},
-	"Async statement — let": {
-		"prefix": "asyncl",
-		"body": [
-			"async let ${1:result} ${2:type} = ${3:call};"
-		],
-		"description": "Schedule an async operation with mutable binding"
-	},
-	"Await statement": {
-		"prefix": "await",
-		"body": [
-			"await ${1:result};"
-		],
-		"description": "Wait for async operation(s)"
-	},
-	"Await multiple": {
-		"prefix": "awaitm",
-		"body": [
-			"await ${1:a}, ${2:b};"
-		],
-		"description": "Wait for multiple async operations"
-	},
-	"Spawn statement": {
-		"prefix": "spawn",
-		"body": [
-			"spawn const ${1:result} ${2:type} = ${3:call};"
-		],
-		"description": "Spawn a thread"
-	},
-	"Spawn fire-and-forget": {
-		"prefix": "spawn_",
-		"body": [
-			"spawn _ = ${0};"
-		],
-		"description": "Spawn a thread and discard result"
-	},
-	"Join statement": {
-		"prefix": "join",
-		"body": [
-			"join ${1:result};"
-		],
-		"description": "Wait for spawned thread(s)"
-	},
-	"Join multiple": {
-		"prefix": "joinm",
-		"body": [
-			"join ${1:a}, ${2:b};"
-		],
-		"description": "Wait for multiple spawned threads"
-	},
-	"Pipeline": {
-		"prefix": "pipe",
-		"body": [
-			"${1:seed}",
-			"\t|> ${2:step}",
-			"\t|> ${0}"
-		],
-		"description": "Pipeline operator"
-	},
-	"Pipeline with argument pack": {
-		"prefix": "pipepack",
-		"body": [
-			"${1:seed}",
-			"\t|> ${2:fn}(${3:args})!",
-			"\t|> ${0}"
-		],
-		"description": "Pipeline with argument pack"
-	},
-	"Composition": {
-		"prefix": "compose",
-		"body": [
-			"const ${1:name} (${2:param} ${3:type}) -> ${4:returnType} = ${5:f} +> ${6:g};"
-		],
-		"description": "Function composition"
-	},
-	"Nil coalesce": {
-		"prefix": "??",
-		"body": [
-			"${1:expr} ?? ${0}"
-		],
-		"description": "Nil/err coalescing fallback"
-	},
-	"Err return": {
-		"prefix": "err",
-		"body": [
-			"return err;"
-		],
-		"description": "Return err from a fallible function"
-	},
-	"Err return with log": {
-		"prefix": "errlog",
-		"body": [
-			"io:printl(\"${1:error message}\");",
-			"return err;"
-		],
-		"description": "Log and return err"
-	},
-	"Scope exit": {
-		"prefix": "scope_exit",
-		"body": [
-			"#scope_exit(${1:fn}, ${0});"
-		],
-		"description": "Register cleanup callback for scope exit"
-	},
-	"Allocate": {
-		"prefix": "#alloc",
-		"body": [
-			"#alloc(${1:Type}, ${2:count})"
-		],
-		"description": "Lucid-tracked heap allocation"
-	},
-	"Free": {
-		"prefix": "#free",
-		"body": [
-			"#free(${0});"
-		],
-		"description": "Free Lucid-tracked allocation"
-	},
-	"Arena create": {
-		"prefix": "#arena_create",
-		"body": [
-			"let ${1:arena} ArenaDescriptor = #arena_create(${2:size});"
-		],
-		"description": "Create a named arena"
-	},
-	"Arena alloc": {
-		"prefix": "#arena_alloc",
-		"body": [
-			"#arena_alloc(${1:arena}, ${2:Type}, ${3:count})"
-		],
-		"description": "Allocate from an arena"
-	},
-	"Arena free": {
-		"prefix": "#arena_free",
-		"body": [
-			"#arena_free(${0});"
-		],
-		"description": "Destroy arena and all contents"
-	},
-	"ToRef": {
-		"prefix": "#toRef",
-		"body": [
-			"#toRef(${0})"
-		],
-		"description": "Convert raw pointer to safe reference"
-	},
-	"ToPtr": {
-		"prefix": "#toPtr",
-		"body": [
-			"#toPtr(${0})"
-		],
-		"description": "Convert safe reference to raw pointer"
-	},
-	"PtrOffset": {
-		"prefix": "#ptrOffset",
-		"body": [
-			"#ptrOffset(${1:ptr}, ${2:n})"
-		],
-		"description": "Pointer arithmetic"
-	},
-	"Sizeof": {
-		"prefix": "#sizeof",
-		"body": [
-			"#sizeof(${0})"
-		],
-		"description": "Compile-time byte size of type"
-	},
-	"Alignof": {
-		"prefix": "#alignof",
-		"body": [
-			"#alignof(${0})"
-		],
-		"description": "Compile-time alignment of type"
-	},
-	"Bitcast": {
-		"prefix": "#bitcast",
-		"body": [
-			"#bitcast(${1:Type}, ${0})"
-		],
-		"description": "Reinterpret bits as another type"
-	},
-	"Sqrt": {
-		"prefix": "#sqrt",
-		"body": [
-			"#sqrt(${0})"
-		],
-		"description": "Hardware square root"
-	},
-	"FMA": {
-		"prefix": "#fma",
-		"body": [
-			"#fma(${1:a}, ${2:b}, ${3:c})"
-		],
-		"description": "Fused multiply-add"
-	},
-	"Memcpy": {
-		"prefix": "#memcpy",
-		"body": [
-			"#memcpy(${1:dst}, ${2:src}, ${3:len});"
-		],
-		"description": "Copy bytes (non-overlapping)"
-	},
-	"Memmove": {
-		"prefix": "#memmove",
-		"body": [
-			"#memmove(${1:dst}, ${2:src}, ${3:len});"
-		],
-		"description": "Copy bytes (overlapping safe)"
-	},
-	"Memset": {
-		"prefix": "#memset",
-		"body": [
-			"#memset(${1:dst}, ${2:value}, ${3:len});"
-		],
-		"description": "Fill bytes"
-	},
-	"Atomic add": {
-		"prefix": "#atomic_add",
-		"body": [
-			"#atomic_add(${1:ptr}, ${2:val}, ${3:relaxed});"
-		],
-		"description": "Atomic fetch-and-add"
-	},
-	"Atomic CAS": {
-		"prefix": "#atomic_cas",
-		"body": [
-			"#atomic_cas(${1:ptr}, ${2:expected}, ${3:value}, ${4:acq_rel});"
-		],
-		"description": "Atomic compare-and-swap"
-	},
-	"Prefetch": {
-		"prefix": "#prefetch",
-		"body": [
-			"#prefetch(${0});"
-		],
-		"description": "Prefetch data into cache"
-	},
-	"Likely": {
-		"prefix": "#likely",
-		"body": [
-			"#likely(${0})"
-		],
-		"description": "Branch prediction hint — condition usually true"
-	},
-	"Unlikely": {
-		"prefix": "#unlikely",
-		"body": [
-			"#unlikely(${0})"
-		],
-		"description": "Branch prediction hint — condition usually false"
-	},
-	"Pause": {
-		"prefix": "#pause",
-		"body": [
-			"#pause();"
-		],
-		"description": "Spin-wait hint"
 	},
 	"Export attribute": {
 		"prefix": "@export",
 		"body": [
-			"@[export]"
+			"@export"
 		],
-		"description": "Export attribute — visible outside module"
+		"description": "Mark a declaration as visible to importing modules"
 	},
-	"Foreign attribute": {
-		"prefix": "@foreign",
+	"Enum declaration": {
+		"prefix": "enum",
 		"body": [
-			"@[foreign(\"C\"), link(\"${1:library}\")]"
+			"@export",
+			"enum ${1:Name} {",
+			"\t${2:Member},",
+			"\t${0}",
+			"}"
 		],
-		"description": "Foreign function attribute"
+		"description": "Enum declaration"
 	},
-	"Deprecated attribute": {
-		"prefix": "@deprecated",
+	"Enum declaration (empty)": {
+		"prefix": "enume",
 		"body": [
-			"@[deprecated(\"${1:Use replacement instead}\")]"
+			"enum ${1:Name} { }"
 		],
-		"description": "Deprecated attribute"
+		"description": "Empty enum declaration"
 	},
-	"Inline attribute": {
-		"prefix": "@inline",
+	"Resource declaration": {
+		"prefix": "resource",
 		"body": [
-			"@[inline]"
+			"@export",
+			"resource ${1:Name} {",
+			"\t${2:field}: ${3:type} = ${4:value},",
+			"\t${0}",
+			"}"
 		],
-		"description": "Inline hint"
+		"description": "Resource declaration with a typed, defaulted field"
 	},
-	"Noinline attribute": {
-		"prefix": "@noinline",
+	"Resource declaration (empty)": {
+		"prefix": "resourcee",
 		"body": [
-			"@[noinline]"
+			"resource ${1:Name} { }"
 		],
-		"description": "Prevent inlining"
+		"description": "Empty resource declaration"
 	},
-	"Specialize attribute": {
-		"prefix": "@specialize",
+	"Node declaration": {
+		"prefix": "node",
 		"body": [
-			"@[specialize]"
+			"node ${1:name} = ${2:NodeType}(${0})"
 		],
-		"description": "Force monomorphization for generic"
+		"description": "Node declaration"
 	},
-	"Return statement": {
-		"prefix": "return",
+	"Node declaration with trigger": {
+		"prefix": "nodeon",
 		"body": [
-			"return ${0};"
+			"node ${1:name} = ${2:NodeType}(${3:args}) on ${4:trigger}"
 		],
-		"description": "Return from a function"
+		"description": "Node declaration with an on clause"
 	},
-	"Return void": {
-		"prefix": "returnv",
+	"Node declaration with multiple triggers": {
+		"prefix": "nodeonm",
 		"body": [
-			"return;"
+			"node ${1:name} = ${2:NodeType}(${3:args}) on ${4:a}, ${5:b}"
 		],
-		"description": "Return from a void function"
+		"description": "Node declaration with multiple triggers"
 	},
-	"Break statement": {
-		"prefix": "break",
+	"Inline node expression": {
+		"prefix": "nodeexpr",
 		"body": [
-			"break;"
+			"${1:NodeType}(${0})"
 		],
-		"description": "Break out of a loop or switch"
+		"description": "Inline node expression"
 	},
-	"Continue statement": {
-		"prefix": "continue",
+	"Qualified node type": {
+		"prefix": "nodeq",
 		"body": [
-			"continue;"
+			"node ${1:name} = ${2:module}::${3:NodeType}(${0})"
 		],
-		"description": "Continue to next loop iteration"
+		"description": "Node declaration using a module-qualified node type"
 	},
-	"Doc comment": {
-		"prefix": "doc",
+	"Qualified resource field type": {
+		"prefix": "fieldq",
 		"body": [
-			"/--",
-			" - ${1:Description}",
-			" -",
-			" - ${0}",
-			"--/"
+			"${1:field}: ${2:module}::${3:Type} = ${0},"
 		],
-		"description": "Documentation comment"
+		"description": "Resource field with a module-qualified type"
+	},
+	"Enum member value": {
+		"prefix": "enumval",
+		"body": [
+			"${1:Enum}.${2:Member}"
+		],
+		"description": "Enum member access as a value"
+	},
+	"Resource field access": {
+		"prefix": "fieldval",
+		"body": [
+			"${1:Resource}.${2:field}"
+		],
+		"description": "Resource field access as a value"
+	},
+	"Boolean literal": {
+		"prefix": "true",
+		"body": [
+			"true"
+		],
+		"description": "Boolean true"
+	},
+	"Boolean literal false": {
+		"prefix": "false",
+		"body": [
+			"false"
+		],
+		"description": "Boolean false"
+	},
+	"Nil literal": {
+		"prefix": "nil",
+		"body": [
+			"nil"
+		],
+		"description": "Nil value"
+	},
+	"Negative float literal": {
+		"prefix": "negf",
+		"body": [
+			"-${1:0.0}"
+		],
+		"description": "Negative float literal (sign is part of the literal)"
+	},
+	"Block comment": {
+		"prefix": "/-",
+		"body": [
+			"/-",
+			"\t${0}",
+			"-/"
+		],
+		"description": "Nestable block comment"
 	},
 	"Line comment": {
 		"prefix": "--",

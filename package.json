@@ -2,9 +2,9 @@
 	"name": "lucid-language-support",
 	"displayName": "Lucid Language Support",
 	"icon": "icon.png",
-	"description": "Syntax highlighting and support for the Lucid language",
+	"description": "Syntax highlighting and support for the Lucid graph format",
 	"publisher": "Axo",
-	"version": "0.3.0",
+	"version": "0.4.0",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/Axo-1206/lucid-language-support.git"
@@ -22,16 +22,14 @@
 				"id": "lucid",
 				"aliases": [
 					"Lucid",
-					"lucid",
-					"Luc",
-					"luc"
+					"lucid"
 				],
 				"extensions": [
-					".luc"
+					".lucid"
 				],
 				"icon": {
-					"light": "./icons/luc-logo.svg",
-					"dark": "./icons/luc-logo.svg"
+					"light": "./icons/logo.svg",
+					"dark": "./icons/logo.svg"
 				},
 				"configuration": "./language-configuration.json"
 			}
